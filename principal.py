@@ -136,23 +136,27 @@ def main():
 
         # Visualization logic
         if chart_type == "Barra":
-            col1, col2 = st.columns(2)
+            col1, col2, col3 = st.columns(3)
             with col1:
-                x_axis = st.selectbox("Eixo X", ["País", "Equipe"])
+                x_axis = st.selectbox("Eixo X", ["País","Equipe"])
             with col2:
                 y_axis = st.selectbox("Eixo Y", numeric_cols)
+            with col3:
+                color = st.selectbox("Cor", [None] + ["País","Equipe"])
 
-            fig = px.bar(df, x=x_axis, y=y_axis, title=f"{y_axis} por {x_axis} - {selected_season}")
+            fig = px.bar(df, x=x_axis, y=y_axis, color=color, title=f"{y_axis} por {x_axis} - {selected_season}")
             st.plotly_chart(fig, use_container_width=True)
 
         elif chart_type == "Dispersão":
-            col1, col2 = st.columns(2)
+            col1, col2, col3 = st.columns(3)
             with col1:
                 x_axis = st.selectbox("Eixo X", numeric_cols, index=6)
             with col2:
                 y_axis = st.selectbox("Eixo Y", numeric_cols, index=11)
+            with col3:
+                color = st.selectbox("Cor", [None] + ["País"],index=1)
 
-            fig = px.scatter(df, x=x_axis, y=y_axis, hover_data=["Equipe", "Posição na Liga"],
+            fig = px.scatter(df, x=x_axis, y=y_axis, color=color, hover_data=["Equipe", "Posição na Liga"],
                              title=f"{y_axis} vs {x_axis} - {selected_season}")
             st.plotly_chart(fig, use_container_width=True)
 
