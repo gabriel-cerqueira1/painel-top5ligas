@@ -94,6 +94,9 @@ def home_page():
 
 
 def main():
+    # Page navigation
+    page = st.sidebar.selectbox("Navegação", ["Home", "Visão Geral", "Visualização de Dados"])
+    
     # Season selection in sidebar
     selected_season = st.sidebar.selectbox("Selecione a Temporada", list(SEASONS.keys()))
     season_code = SEASONS[selected_season]
@@ -103,9 +106,6 @@ def main():
 
     if df is None:
         st.stop()
-
-    # Page navigation
-    page = st.sidebar.selectbox("Navegação", ["Home", "Visão Geral", "Visualização de Dados"])
 
     if page == "Home":
         home_page()
